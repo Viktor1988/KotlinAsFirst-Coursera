@@ -1,7 +1,9 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson2.task1
 
+import com.sun.org.apache.bcel.internal.generic.SWAP
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -73,7 +75,26 @@ fun ageDescription(age: Int): String = TODO()
  */
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
-                   t3: Double, v3: Double): Double = TODO()
+                   t3: Double, v3: Double): Double {
+
+    val s1 = t1 * v1
+    val s2 = t2 * v2
+    val s3 = t3 * v3
+    val s = s1 + s2 + s3
+    val ss = s / 2
+
+    if (s1 > ss) {
+        return ss / v1
+    }
+    else if ((s1 + s2) > ss) {
+        return t1 + (ss - s1) / v2
+    }
+    else if (s1 + s2 < ss) {
+        return t1 + t2 + (ss - s1 - s2) / v3
+    }
+    else return 1.5
+}
+
 
 /**
  * Простая
@@ -110,7 +131,56 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+
+    var tmp: Double
+    var a1: Double = a
+    var b1: Double = b
+    var c1: Double = c
+
+        if (a1 > b1) {
+            tmp = a1
+            a1 = b1
+            b1 = tmp
+        }
+
+        if (b > c) {
+            tmp = b1
+            b1 = c1
+            c1 = tmp
+        }
+        if (a1 > b1) {
+            tmp = a1
+            a1 = b1
+            b1 = tmp
+        }
+
+
+
+    println(a1)
+    println(b1)
+    println(c1)
+
+    if (sqr(c1) == (sqr(b1) + sqr(a1))) {
+        return 1
+    }
+    else if (sqr(c1) >(sqr(b1) + sqr(a1))){
+        return 0
+    }
+    else if (sqr(c1) < (sqr(b1) + sqr(a1))){
+        return 2
+    }
+    else return -1
+
+//    if (a1 + b1 > c1 && a1 + c1 > b1 && b1 + c1 > a1) {
+//        return -1
+//    }
+//    else if (a1 * a1 + b1 * b1 < c1 * c1) {
+//        return 0
+//    } else if (a1 * a1 + b1 * b1 > c1 * c1) {
+//        return 2
+//    } else return 1
+}
 
 /**
  * Средняя
@@ -120,4 +190,26 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+
+    if (a < b && b < c && b < d) {
+        return -1
+    }
+    else if (a < b && a > c && a > d && b > c) {
+        return -1
+    }
+    else if (a < b && b==c && d > a && d > b ) {
+        return c - b
+    }
+    else if (a > c && b > a && d > b){
+        return a - c
+    }
+    else
+         if (a < c && c < b && b < d){
+             return b -c
+         }
+    else if (a >c && d > a && b > d) {
+             return d - a
+         }
+    else return d - c
+}
