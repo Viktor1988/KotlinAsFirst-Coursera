@@ -26,7 +26,7 @@ fun isNumberHappy(number: Int): Boolean = number / 1000 + (number / 100) % 10 ==
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = (x1 == x2) || (y1 == y2) || (x2 - x1 == y2 - y1) || (x1 + y1 == y2 + x2)
 
 
 /**
@@ -35,7 +35,51 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
  * Дан номер месяца (от 1 до 12 включительно) и год (положительный).
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
-fun daysInMonth(month: Int, year: Int): Int = TODO()
+fun daysInMonth(month: Int, year: Int): Int {
+    var leap = false
+    var day = 0
+
+    if (year % 4 == 0 && year > 1918) {
+        leap = true
+    }
+    else if (year % 4 != 0) {
+        leap = false
+    }
+
+    if (leap){
+        when (month) {
+            1 -> return 31
+            2 -> return 29
+            3 -> return 31
+            4 -> return 30
+            5 -> return 31
+            6 -> return 30
+            7 -> return 31
+            8 -> return 31
+            9 -> return 30
+            10 -> return 31
+            11 -> return 30
+            12 -> return 31
+        }
+    }
+    else if (!leap) {
+        when (month) {
+            1 -> return 31
+            2 -> return 28
+            3 -> return 31
+            4 -> return 30
+            5 -> return 31
+            6 -> return 30
+            7 -> return 31
+            8 -> return 31
+            9 -> return 30
+            10 -> return 31
+            11 -> return 30
+            12 -> return 31
+        }
+    }
+    return day
+}
 
 /**
  * Средняя
@@ -56,4 +100,4 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean = ((a <= s) && (b <= r)) || ((b <= s) && (a <= r)) || ((a <= s) && (c <= r)) || ((c <= s) && (a <= r)) || (c <= s) && (b <= r) || (b <= s) && (c <= r) || ((a == b || a == c || b == c) && (s == r))
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean = (((a <= r) && ((b <= s) || (c <= s))) || ((b <= r) && ((a <= s) || (c <= s))) || ((c <= r) && ((b <= s) || (a <= s))))
