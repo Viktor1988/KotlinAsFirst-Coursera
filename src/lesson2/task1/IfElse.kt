@@ -92,7 +92,7 @@ fun timeForHalfWay(t1: Double, v1: Double,
     else if (s1 + s2 < ss) {
         return t1 + t2 + (ss - s1 - s2) / v3
     }
-    else return 1.5
+    else return s / (v1 + v2 + v3)
 }
 
 
@@ -133,53 +133,29 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
 
-    var tmp: Double
-    var a1: Double = a
-    var b1: Double = b
-    var c1: Double = c
+    var massiv = arrayOf(a,b,c)
 
-        if (a1 > b1) {
-            tmp = a1
-            a1 = b1
-            b1 = tmp
-        }
-
-        if (b > c) {
-            tmp = b1
-            b1 = c1
-            c1 = tmp
-        }
-        if (a1 > b1) {
-            tmp = a1
-            a1 = b1
-            b1 = tmp
-        }
+    massiv.sort()
+    var a1= massiv[0]
+    var b1= massiv[1]
+    var c1= massiv[2]
 
 
 
-    println(a1)
-    println(b1)
-    println(c1)
+   if (a1 + b1 > c1 && a1 + c1 > b1 && b1 + c1 > a1) {
 
-    if (sqr(c1) == (sqr(b1) + sqr(a1))) {
-        return 1
-    }
-    else if (sqr(c1) >(sqr(b1) + sqr(a1))){
-        return 0
-    }
-    else if (sqr(c1) < (sqr(b1) + sqr(a1))){
-        return 2
-    }
-    else return -1
-
-//    if (a1 + b1 > c1 && a1 + c1 > b1 && b1 + c1 > a1) {
-//        return -1
-//    }
-//    else if (a1 * a1 + b1 * b1 < c1 * c1) {
-//        return 0
-//    } else if (a1 * a1 + b1 * b1 > c1 * c1) {
-//        return 2
-//    } else return 1
+       if (a1 * a1 + b1 * b1 < c1 * c1) {
+           return 2
+       }
+       else if (a1 * a1 + b1 * b1 > c1 * c1) {
+           return 0
+       }
+       else if (a1 * a1 + b1 * b1 == c1 * c1) {
+           return 1
+       }
+       else return -1
+   }
+   else return -1
 }
 
 /**
@@ -190,26 +166,26 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-
-    if (a < b && b < c && b < d) {
-        return -1
-    }
-    else if (a < b && a > c && a > d && b > c) {
-        return -1
-    }
-    else if (a < b && b==c && d > a && d > b ) {
-        return c - b
-    }
-    else if (a > c && b > a && d > b){
-        return a - c
-    }
-    else
-         if (a < c && c < b && b < d){
-             return b -c
-         }
-    else if (a >c && d > a && b > d) {
-             return d - a
-         }
-    else return d - c
-}
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+// {
+//
+//    if (a < b && b < c && b < d) {
+//        return -1
+//    }
+//    else if (a < b && a > c && a > d && b > c) {
+//        return -1
+//    }
+//    else if (a < b && b==c && d > a && d > b ) {
+//        return c - b
+//    }
+//    else if (a > c && b > a && d > b){
+//        return a - c
+//    }
+//    else if (a < c && c < b && b < d){
+//             return b -c
+//         }
+//    else if (a >c && d > a && b > d) {
+//             return d - a
+//         }
+//    else return d - c
+//}
