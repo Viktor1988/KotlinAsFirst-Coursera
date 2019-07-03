@@ -66,7 +66,23 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+
+    var i = 1
+    var m = Math.abs(n)
+    if (m / 10 ==0){
+        return 1
+    }
+    else {
+        while (m / 10 > 0){
+            m %10
+            m = m / 10
+            i++
+        }
+    }
+    return i
+
+}
 
 /**
  * Простая
@@ -74,8 +90,26 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var sum = 1
+    var a = 1
+    var b = 1
+    var i = 1
 
+    if (n > 2) {
+        while (i <= n) {
+            sum = a + b
+            a = b
+            b = sum
+            i++
+        }
+        return sum
+    }
+    else if (n > 0 && n <= 2){
+        return sum
+    }
+    return sum
+}
 /**
  * Простая
  *
@@ -89,7 +123,14 @@ fun lcm(m: Int, n: Int): Int = TODO()
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+
+    var i = 2
+    while (i <= n && n % i !=0){
+        i++
+    }
+    return i
+}
 
 /**
  * Простая
@@ -150,7 +191,17 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double {
+
+    var i: Int
+    var result = 1.0
+    for (i in 1.. x.toInt())
+    {
+        if (i%2==0)
+        result = result - Math.pow(x, i + 1.0)/ factorial(i + 1)
+    }
+    return result
+}
 
 /**
  * Средняя

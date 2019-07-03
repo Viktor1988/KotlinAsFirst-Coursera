@@ -115,14 +115,37 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()
+fun abs(v: List<Double>): Double {
+
+    var result = 0.0
+    if (v.isEmpty()) return 0.0
+
+    for (i in 0 until v.size){
+        result += Math.pow(v[i], 2.0)
+    }
+    result = Math.sqrt(result)
+    return result
+}
 
 /**
  * Простая
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()
+fun mean(list: List<Double>): Double {
+
+    var result = 0.0
+
+    for (element in list) {
+        result += element / list.size
+    }
+
+//    return list.map {
+//        it / list.size
+//    }.sum()
+
+    return result
+}
 
 /**
  * Средняя
@@ -132,8 +155,14 @@ fun mean(list: List<Double>): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): List<Double> {
 
+    if (list.isEmpty()) return list
+
+    var averageValue = mean(list)
+    for (i in 0 until list.size) list[i]-=averageValue
+    return list
+}
 /**
  * Средняя
  *
@@ -141,8 +170,18 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
-fun times(a: List<Double>, b: List<Double>): Double = TODO()
+fun times(a: List<Double>, b: List<Double>): Double {
 
+    var result = 0.0
+    if (a.isEmpty() || a.isEmpty()) return 0.0
+
+
+        for (i in 0 until b.size) {
+            result += a[i] * b[i]
+        }
+
+    return result
+}
 /**
  * Средняя
  *
@@ -151,7 +190,17 @@ fun times(a: List<Double>, b: List<Double>): Double = TODO()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun polynom(p: List<Double>, x: Double): Double = TODO()
+fun polynom(p: List<Double>, x: Double): Double {
+
+    var result = 0.0
+    if (p.isEmpty()) return 0.0
+
+    for (i in 0 until p.size){
+        result+=p[i]*Math.pow(x,i.toDouble())
+    }
+    return result
+
+}
 
 /**
  * Средняя
@@ -163,7 +212,16 @@ fun polynom(p: List<Double>, x: Double): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
+fun accumulate(list: MutableList<Double>): MutableList<Double> {
+
+    if (list.isEmpty()) return list
+
+    for (i in 1..list.size - 1)
+    {
+        list[i] += list[i - 1]
+    }
+    return list
+}
 
 /**
  * Средняя
@@ -172,7 +230,21 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+
+    var divider = 2
+    var m = n
+    var list= mutableListOf<Int>()
+
+    while (m > 1) {
+        if (m % divider == 0) {
+            m /= divider
+            list.add(divider)
+        }
+        else divider++
+    }
+    return list
+}
 
 /**
  * Сложная
@@ -181,7 +253,10 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+
+    return factorize(n).joinToString(separator = "*")
+}
 
 /**
  * Средняя
@@ -230,7 +305,95 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+
+//    var unit = ""
+//    var tens = ""
+//    var hundres = ""
+//    var thousand = ""
+//
+//    var a = n
+//    var b: Int
+//
+//    b = a % 10
+//    a /= 10
+//
+//
+//    when (b) {
+//        0 -> unit = ""
+//        1 -> unit = "I"
+//        2 -> unit = "II"
+//        3 -> unit = "II"
+//        4 -> unit = "IV"
+//        5 -> unit = "V"
+//        6 -> unit = "VI"
+//        7 -> unit = "VII"
+//        8 -> unit = "VIII"
+//        9 -> unit = "IX"
+//    }
+//
+//    b = a % 10
+//    a /= 10
+//
+//    when (b) {
+//        0 -> tens = unit
+//        1 -> tens = "X$unit"
+//        2 -> tens = "XX$unit"
+//        3 -> tens = "XXX$unit"
+//        4 -> tens = "XL$unit"
+//        5 -> tens = "L$unit"
+//        6 -> tens = "LX$unit"
+//        7 -> tens = "LXX$unit"
+//        8 -> tens = "LXXX$unit"
+//        9 -> tens = "XC$unit"
+//    }
+//
+//    b = a % 10
+//    a /= 10
+//
+//    when (b) {
+//        0 -> hundres = tens
+//        1 -> hundres = "C$tens"
+//        2 -> hundres = "CC$tens"
+//        3 -> hundres =  "CC$tens"
+//        4 -> hundres = "CD$tens"
+//        5 -> hundres = "D$tens"
+//        6 -> hundres = "DC$tens"
+//        7 -> hundres = "DCC$tens"
+//        8 -> hundres = "DCCC$tens"
+//        9 -> hundres = "CM$tens"
+//    }
+//
+//    b = a % 10
+//    a /= 10
+//
+//    when (b) {
+//        0 -> thousand = hundres
+//        1 -> thousand = "M$hundres"
+//        2 -> thousand = "MM$hundres"
+//        3 -> thousand = "MMM$hundres"
+//    }
+//
+//    println(thousand)
+//    return thousand
+
+
+    val word = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    val number = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+
+    var str = ""
+    var m = n
+    var i = 0
+
+    while (m > 0) {
+        while (m - number[i] >= 0) {
+            str += word[i]
+            m -= number[i]
+        }
+        i+=1
+    }
+    return str
+}
 
 /**
  * Очень сложная
